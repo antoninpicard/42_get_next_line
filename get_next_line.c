@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anpicard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/18 09:23:25 by anpicard          #+#    #+#             */
-/*   Updated: 2024/11/18 14:51:12 by anpicard         ###   ########.fr       */
+/*   Created: 2024/11/19 10:38:56 by anpicard          #+#    #+#             */
+/*   Updated: 2024/11/19 11:22:53 by anpicard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*read_and_store(int fd, char *stash)
 		if (bytes_read < 0)
 		{
 			free(buffer);
-			return (NULL);
+			return (free(stash), NULL);
 		}
 		buffer[bytes_read] = '\0';
 		stash = ft_strjoin(stash, buffer);

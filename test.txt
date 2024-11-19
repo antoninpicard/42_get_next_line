@@ -1,3 +1,1 @@
-Bonjour, monde !
-C'est une deuxième ligne.
-Et une troisième.
+0

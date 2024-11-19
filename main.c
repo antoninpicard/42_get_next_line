@@ -1,43 +1,42 @@
-#include <stdio.h>
-#include <fcntl.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anpicard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/19 10:18:34 by anpicard          #+#    #+#             */
+/*   Updated: 2024/11/19 10:18:40 by anpicard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
-#include <stdlib.h>
+#include <fcntl.h>
+#include <stdio.h>
 
-void	free_stash(char **stash)
+int	main(int argc, char **argv)
 {
-    if (*stash)
-    {
-        free(*stash);
-        *stash = NULL;
-    }
+	int		fd;
+	char	*line;
+
+	if (argc != 2)
+	{
+		printf("Usage: %s <file_path>\n", argv[0]);
+		return (1);
+	}
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+	{
+		perror("Error opening file");
+		return (1);
+	}
+	line = get_next_line(fd);
+	while (line)
+	{
+		printf("%s", line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	return (0);
 }
-
-void	test_gnl(const char *filename)
-{
-    int		fd;
-    char	*line;
-
-    fd = open(filename, O_RDONLY);
-    if (fd == -1)
-    {
-        perror("Error opening file");
-        return ;
-    }
-    while ((line = get_next_line(fd)) != NULL)
-    {
-        printf("%s", line);
-        free(line);
-    }
-    close(fd);
-}
-
-int	main(void)
-{
-    static char	*stash = NULL;
-
-    printf("=== Test avec test.txt ===\n");
-    test_gnl("1char.txt");
-    free_stash(&stash); // Libérez `stash` pour éviter les fuites de mémoire
-    return (0);
-}
-
