@@ -6,7 +6,7 @@
 /*   By: anpicard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 09:23:21 by anpicard          #+#    #+#             */
-/*   Updated: 2024/11/19 11:22:50 by anpicard         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:07:41 by anpicard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,9 @@ char	*extract_line(char **stash)
 	if (!*stash || !**stash)
 		return (NULL);
 	i = 0;
-	while ((*stash)[i] && (*stash)[i] != '\n')
+	while (((*stash)[i] && (*stash)[i] != '\n') || (*stash)[i] == '\n')
 		i++;
-	line = malloc((i + 2) * sizeof(char));
+	line = malloc(i + 1 * sizeof(char));
 	if (!line)
 		return (NULL);
 	i = 0;
